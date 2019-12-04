@@ -1,6 +1,10 @@
 let catcher = document.getElementById("catcher")
+let ball = document.getElementById("circle")
+let ballposition = 0;
 let moveby = 10;
 var position = 0;
+var teststart = false;
+var gravity = 0.5;
 
 
 window.onkeydown = function (e) {
@@ -15,20 +19,18 @@ function MovePlatform(key) {
         case "ArrowLeft":
             position = position - moveby;
             catcher.style.left = position + "px";
-            console.log(moveby);
             break;
         case "ArrowRight":
             position = position + moveby;
             catcher.style.left = position + "px";
-            //per 10 (moveby) naar links (vloeiend)
-            console.log(moveby);
             break;
     }
 }
 
 /* ipv de afbeelding te laten verspringen per 10, doe ik hem per 1 maar dan icm een timer zodat ie vloeiender gaat
-   ipv te updaten op een click, constant locatie updaten*/
-function Timer(key) {
+   ipv te updaten op een click, constant locatie updaten
+   
+  function Timer(key) {
     if (key.code == "ArrowLeft") {
         position -= 1;
     } else if (key.code == "ArrowRight") {
@@ -36,11 +38,27 @@ function Timer(key) {
     }
 
     catcher.style.left = position + "px";
+}*/
 
-    setTimeout(Timer, 10)
+function Start() {
+    if (teststart == false) {
+        timer1 = setInterval(function () {
+            ballposition++;
+            ball.style.top = ballposition + "px";
+        }, 5)
+        teststart = true;
 
+    } else if (teststart == true) {
+        StopTimer();
+        ballposition = 0 + "px";
+        teststart = false;
+    }
 }
 
+
+function StopTimer() {
+    clearInterval(timer1);
+}
 
 
 /*---------------------------------------------------------------------------------------------------------*/
